@@ -94,5 +94,4 @@ for i = 1:iterations
 end
 
 % Save disparity image
-
 imwrite(dispImage,'Disparity.png')
