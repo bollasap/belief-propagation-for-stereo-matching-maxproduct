@@ -1,7 +1,6 @@
 dispLevels = 16;
 iterations = 80;
-%lambda = 5;
-lambda = 0.3;
+lambda = 5;
 threshold = dispLevels-1; %don't use threshold
 
 % Set the disparity values
@@ -22,13 +21,13 @@ right = imgaussfilt(right,0.6,'FilterSize',5);
 dataCost = zeros(height,width,dispLevels);
 for i = 1:dispLevels
 	right_d = [zeros(height,d(i)),right(:,1:end-d(i))];
-	%dataCost(:,:,i) = exp(-abs(double(left)-double(right_d)));
-	dataCost(:,:,i) = 255-abs(double(left)-double(right_d));
+	dataCost(:,:,i) = exp(-abs(double(left)-double(right_d)));
+	%dataCost(:,:,i) = 255-abs(double(left)-double(right_d));
 end
 
 % Cache smoothness cost
-%smoothnessCost = exp(-lambda*min(abs(d-d'),threshold));
-smoothnessCost = max(threshold-abs(d-d'),0).^lambda;
+smoothnessCost = exp(-lambda*min(abs(d-d'),threshold));
+%smoothnessCost = max(threshold-abs(d-d'),0).^lambda; %lambda=0.3
 
 % Initialize messages
 msgUp = ones(height,width,dispLevels);
